@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="150px"
+        android:id="@+id/first"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <Button android:id="@+id/one"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:layout_weight="0.3" />
+
+        <Button android:id="@+id/two"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:layout_weight="0.3" />
+
+        <Button android:id="@+id/three"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:padding="0px"
+            android:layout_weight="0.3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="150px"
+        android:layout_below="@+id/first"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+
+        <Button android:id="@+id/four"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:layout_weight="0.3" />
+
+        <Button android:id="@+id/five"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:layout_weight="0.3" />
+
+        <Button android:id="@+id/six"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:layout_weight="0.3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true">
+
+        <Button android:id="@+id/seven"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:layout_weight="0.3" />
+
+        <Button android:id="@+id/eight"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:layout_weight="0.3" />
+
+        <Button android:id="@+id/nine"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5px"
+            android:text=" "
+            android:textSize="70px"
+            android:layout_weight="0.3" />
+    </LinearLayout>
+
+    <TextView android:id="@+id/dialogue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Click a button to start"
+        android:gravity="center_horizontal"
+        android:textSize="32px"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
