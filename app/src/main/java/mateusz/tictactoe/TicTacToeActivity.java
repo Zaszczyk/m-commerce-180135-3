@@ -2,6 +2,7 @@ package mateusz.tictactoe;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,28 +15,22 @@ import java.util.Random;
 
 public class TicTacToeActivity extends Activity {
 
-    // this array holds the status of each button whether
     //it is an X (=1), an O(=0), or blank (=2)
     int board[][];
 
-    // this is the map of buttons. Think of it as buttons[ROW][COLUMN]
-    // (same for board)
     Button buttons[][];
 
-    // variables used throughout the app (some declared here for scope,
-    // others for convenience)
-    int i, j, k = 0;
+    int i, j;
 
-    // our dialogue where we will provide status updates
     TextView textView;
 
-    // The AI we will play against
     AI ai;
 
 
     int status = 0;
 
     /*
+        -1 - w trakcie
         0 - nierozpoczęta
         1 - skończona
      */
@@ -76,10 +71,10 @@ public class TicTacToeActivity extends Activity {
         buttons[3][2] = (Button) findViewById(R.id.eight);
         buttons[3][1] = (Button) findViewById(R.id.nine);
 
+        textView.setOnClickListener(new TextViewListener());
+
         clearBoard();
 
-        textView.setText("Kliknij, żeby zaczął komputer.");
-        textView.setOnClickListener(new TextViewListener());
     }
 
     private void clearBoard() {
@@ -96,6 +91,7 @@ public class TicTacToeActivity extends Activity {
                 }
             }
         }
+        textView.setText("Kliknij, żeby zaczął komputer.");
     }
 
     private boolean checkIfYouWon() {
@@ -125,13 +121,15 @@ public class TicTacToeActivity extends Activity {
         boolean gameOver = false;
 
         if (checkIfYouWon()) {
-            textView.setText("Wygrałeś!. Kliknij, zaby zagrać ponownie");
-            status = 0;
+            //Toast.makeText(getApplicationContext(), "Wygrałeś!", Toast.LENGTH_SHORT).show();
+            textView.setText("Wygrałeś. Kliknij, żeby zagrać ponownie.");
+            status = 1;
             gameOver = true;
 
         } else if (checkIfYouLost()) {
-            textView.setText("Przegrałeś! Kliknij, zaby zagrać ponownie");
-            status = 0;
+            //Toast.makeText(getApplicationContext(), "Przegrałeś!", Toast.LENGTH_SHORT).show();
+            textView.setText("Przegrałeś. Kliknij, żeby zagrać ponownie.");
+            status = 1;
             gameOver = true;
         } else {
             boolean isEmpty = true;
@@ -146,8 +144,9 @@ public class TicTacToeActivity extends Activity {
 
             if (isEmpty) {
                 gameOver = true;
+                Toast.makeText(getApplicationContext(), "Remis.", Toast.LENGTH_SHORT).show();
                 textView.setText("Remis. Kliknij, zaby zagrać ponownie");
-                status = 0;
+                status = 1;
             }
         }
 
@@ -162,6 +161,46 @@ public class TicTacToeActivity extends Activity {
             board[x][y] = 1;
         else
             board[x][y] = 0;
+    }
+
+    private void gameStarted(){
+        status = -1;
+        textView.setText("Gra w trakcie.");
+    }
+
+    class ButtonListener implements View.OnClickListener {
+        int x;
+        int y;
+
+        public ButtonListener(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        // handle the click event
+        public void onClick(View view) {
+            if (status == 0){
+                gameStarted();
+            }
+
+            markSquare(x, y, "O");
+
+            if (!checkBoard()) {
+                ai.takeTurn();
+            }
+        }
+    }
+
+    class TextViewListener implements View.OnClickListener {
+        public void onClick(View view) {
+            if (status == 0) {
+                gameStarted();
+                ai.takeTurn();
+            } else if (status == 1) {
+                clearBoard();
+                status = 0;
+            }
+        }
     }
 
     // The AI inner class
@@ -222,44 +261,6 @@ public class TicTacToeActivity extends Activity {
             }
 
             checkBoard();
-        }
-
-
-    }
-
-    class ButtonListener implements View.OnClickListener {
-        int x;
-        int y;
-
-        public ButtonListener(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        // handle the click event
-        public void onClick(View view) {
-            if (status == 0)
-                status = 1;
-
-            // check to see if the button is enabled
-            if (buttons[x][y].isEnabled()) {
-                markSquare(x, y, "O");
-
-                if (!checkBoard()) {
-                    ai.takeTurn();
-                }
-            } else
-                Toast.makeText(getApplicationContext(), "To pole jest już zaznaczone.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    class TextViewListener implements View.OnClickListener {
-        public void onClick(View view) {
-            if (status == 0) {
-                ai.takeTurn();
-            } else if (status == 1) {
-
-            }
         }
     }
 }
