@@ -15,7 +15,11 @@ import java.util.Random;
 
 public class TicTacToeActivity extends Activity {
 
-    //it is an X (=1), an O(=0), or blank (=2)
+    /*
+        1 - X
+        0 - O
+        2 - blank
+    */
     int board[][];
 
     Button buttons[][];
@@ -58,7 +62,6 @@ public class TicTacToeActivity extends Activity {
         buttons = new Button[4][4];
         board = new int[4][4];
 
-        // get the objects defined in main.xml
         textView = (TextView) findViewById(R.id.dialogue);
 
         buttons[1][3] = (Button) findViewById(R.id.one);
@@ -74,7 +77,6 @@ public class TicTacToeActivity extends Activity {
         textView.setOnClickListener(new TextViewListener());
 
         clearBoard();
-
     }
 
     private void clearBoard() {
@@ -116,7 +118,6 @@ public class TicTacToeActivity extends Activity {
                 || (board[1][1] == 1 && board[2][1] == 1 && board[3][1] == 1);
     }
 
-    // check the board to see if there is a winner
     private boolean checkBoard() {
         boolean gameOver = false;
 
@@ -144,7 +145,7 @@ public class TicTacToeActivity extends Activity {
 
             if (isEmpty) {
                 gameOver = true;
-                Toast.makeText(getApplicationContext(), "Remis.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Remis.", Toast.LENGTH_SHORT).show();
                 textView.setText("Remis. Kliknij, zaby zagrać ponownie");
                 status = 1;
             }
@@ -153,7 +154,6 @@ public class TicTacToeActivity extends Activity {
         return gameOver;
     }
 
-    // Mark the selected square
     private void markSquare(int x, int y, String symbol) {
         buttons[x][y].setEnabled(false);
         buttons[x][y].setText(symbol);
@@ -163,7 +163,7 @@ public class TicTacToeActivity extends Activity {
             board[x][y] = 0;
     }
 
-    private void gameStarted(){
+    private void gameStarted() {
         status = -1;
         textView.setText("Gra w trakcie.");
     }
@@ -177,9 +177,8 @@ public class TicTacToeActivity extends Activity {
             this.y = y;
         }
 
-        // handle the click event
         public void onClick(View view) {
-            if (status == 0){
+            if (status == 0) {
                 gameStarted();
             }
 
@@ -203,9 +202,8 @@ public class TicTacToeActivity extends Activity {
         }
     }
 
-    // The AI inner class
     private class AI {
-        // the computer checks the board and takes its turn
+
         public void takeTurn() {
             if (board[1][1] == 2 &&
                     ((board[1][2] == 0 && board[1][3] == 0) ||
