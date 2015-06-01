@@ -1,6 +1,8 @@
 package mateusz.tictactoe;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -83,7 +85,7 @@ public class TicTacToeActivity extends Activity {
         for (i = 1; i <= 3; i++) {
             for (j = 1; j <= 3; j++) {
                 board[i][j] = 2;
-
+                buttons[i][j].getBackground().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);
                 if (!buttons[i][j].hasOnClickListeners())
                     buttons[i][j].setOnClickListener(new ButtonListener(i, j));
 
@@ -157,10 +159,16 @@ public class TicTacToeActivity extends Activity {
     private void markSquare(int x, int y, String symbol) {
         buttons[x][y].setEnabled(false);
         buttons[x][y].setText(symbol);
-        if (symbol.equals("X"))
+        if (symbol.equals("X")){
+            buttons[x][y].getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
             board[x][y] = 1;
-        else
+        }
+        else{
             board[x][y] = 0;
+            buttons[x][y].getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+        }
+
+
     }
 
     private void gameStarted() {
